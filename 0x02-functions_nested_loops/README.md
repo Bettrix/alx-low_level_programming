@@ -4,3 +4,4 @@
 3-islower.c- program for checking for lowercase character.
 4-isalpha.c- program for checking for alphabetic character.
 5-sign.c- program for printing the sign of a number.
+6-abs.c- program for computing the absolute value of an integer.
