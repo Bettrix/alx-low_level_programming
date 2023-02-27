@@ -4,3 +4,4 @@
 3-puts.c- prpgram for printing a string, followed by a new line, to stdout.(task 3)
 4-print_rev.c- program for printing a string, in reverse, followed by a new line.(task 4)
 5-rev_string.c- program for reversing a string.(task 5)
+6-puts2.c- program for printing every other character of a string, starting with the first character, followed by a new line.(task 6)
