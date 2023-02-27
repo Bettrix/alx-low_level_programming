@@ -5,14 +5,23 @@
  *  * main - check the code for Holberton School students.
  *   *
  *    * Return: Always 0.
+ *     
  */
 int main(void)
 {
-	int n;
+	char s1[98] = "Hello ";
+	char s2[] = "World!\n";
+	char *p;
 
-	n = 402;
-	printf("n=%d\n", n);
-	reset_to_98(&n);
-	printf("n=%d\n", n);
-	return (0);
+		printf("%s\n", s1);
+		printf("%s", s2);
+		p = _strncat(s1, s2, 1);
+		printf("%s\n", s1);
+		printf("%s", s2);
+		printf("%s\n", p);
+		p = _strncat(s1, s2, 1024);
+		printf("%s", s1);
+		printf("%s", s2);
+		printf("%s", p);
+		return (0);
 }
