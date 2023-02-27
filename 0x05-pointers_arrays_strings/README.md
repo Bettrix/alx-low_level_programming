@@ -2,3 +2,4 @@
 1-swap.c- program for swapping the values of two integers.(task 1)
 2-strlen.c- program for returning the length of a string.(task 2)
 3-puts.c- prpgram for printing a string, followed by a new line, to stdout.(task 3)
+4-print_rev.c- program for printing a string, in reverse, followed by a new line.(task 4)
