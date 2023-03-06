@@ -4,3 +4,4 @@
 3-strspn.c- function for the length of a prefix substring.
 4-strpbrk.c- function for searching a string for any of a set of bytes.
 5-strstr.c- fuction for locating a substring.
+7-print_chessboard.c- function for printing the chessboard.
