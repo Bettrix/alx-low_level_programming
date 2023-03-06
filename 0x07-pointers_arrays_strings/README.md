@@ -2,3 +2,4 @@
 1-memcpy.c- program for copying memory area.
 2-strchr.c- program for locating a character in a string.
 3-strspn.c- function for the length of a prefix substring.
+4-strpbrk.c- function for searching a string for any of a set of bytes.
