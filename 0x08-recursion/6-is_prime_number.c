@@ -15,12 +15,12 @@ int is_prime_number(int n)
 	return (prime_checker(n, _sqrt_recursion(n)));
 }
 /**
- *  * prime_checker - checks if n is prime number using recursion
- *   *
- *    * @n: int to see if isprime
- *     * @prevCheck: previous value checked to see if n % prevCheck == 0
- *      *
- *       * Return: -1 if error, 1 if no value divides by n (prime), 0 if nonprime
+ * prime_checker - checks if n is prime number using recursion
+ *
+ * @n: int to see if isprime
+ * @prevCheck: previous value checked to see if n % prevCheck == 0
+ *
+ * Return: -1 if error, 1 if no value divides by n (prime), 0 if nonprime
  */
 int prime_checker(int n, int prevCheck)
 {
