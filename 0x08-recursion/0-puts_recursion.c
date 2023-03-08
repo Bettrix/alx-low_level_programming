@@ -1,15 +1,15 @@
 #include "main.h"
 /*
-* fucntion for printing a string, followed by a new line.
-* using Prototype: void _puts_recursion(char *s);
+*  _puts_recursion - puts a string to stdout recursively
+*  @s: the string to output to stdout
 *
-* Return- always 0;
+* Return: always void;
 *
 */
-void _puts_recursion(char *s)
+void _puts_recursion (char *s)
 {
-	if(!*s)/*if *s points to a null character*/
-	{	
+	if (!*s)/*if *s points to a null character*/
+	{
 		_putchar('\n');
 		return;
 	}
