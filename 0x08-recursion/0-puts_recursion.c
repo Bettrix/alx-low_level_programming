@@ -5,7 +5,7 @@
  *    * @s: string to put to stdout
  *     *
  *      * Return: always void
- *       */
+ */
 void _puts_recursion(char *s)
 {
 	if (!*s) /* if s points to null char */
