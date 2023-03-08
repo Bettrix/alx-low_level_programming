@@ -6,7 +6,7 @@
 * Return: always void;
 *
 */
-void _puts_recursion (char *s)
+void _puts_recursion(char *s)/*_puts_recursion - puts a string to stdout recursively*/
 {
 	if (!*s)/*if *s points to a null character*/
 	{
