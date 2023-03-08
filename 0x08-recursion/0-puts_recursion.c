@@ -1,5 +1,4 @@
 #include "main.h"
-
 /*
 * fucntion for printing a string, followed by a new line.
 * using Prototype: void _puts_recursion(char *s);
