@@ -1,261 +1,174 @@
-#include <stdio.h>
 #include <stdlib.h>
-int contains_non_numeric(char *str);
-int _atoi(char *s);
-char *infinite_add(char *n1, char *n2, char *r, int size_r);
-void move_int_end_to_beg(char *str, int size, char fill);
-char *multiply_strings(char *s1, char *s2, char *buff, unsigned int size_b);
-void *set_mem(void *p, unsigned int nmemb, unsigned int size, char ch);
-void *_calloc(unsigned int nmemb, unsigned int size);
-int _strlen(char *s);
+#include "main.h"
+
 /**
- * main - entry point for program
+ * _calloc - allocate (`size' * `nmemb') bytes and set to 0
+ * @nmemb: number of elements
+ * @size: number of bytes per element
  *
- * @argc: count of arguments
- * @argv: list of pointers to arguments
- *
- * Return: 0 on success, 1 on failure
+ * Return: pointer to memory, or NULL if `nmemb' or `size' is 0 or malloc fails
  */
-int main(int argc, char *argv[])
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	unsigned int mem;
-	int i;
+	unsigned int i;
+	char *p;
 
-	char *ret;
+	if (size == 0 || nmemb == 0)
+		return (NULL);
+	p = malloc(nmemb * size);
+	if (p == NULL)
+		return (NULL);
+	for (i = 0; i < nmemb * size; ++i)
+		p[i] = 0;
+	return (p);
+}
 
-	if (argc != 3)
+/**
+ * _strdigit - check if string `s' is composed only of digits
+ * @s: string to check
+ *
+ * Return: 1 if true, 0 if false
+ */
+int _strdigit(char *s)
+{
+	if (*s == '-' || *s == '+')
+		++s;
+	while (*s)
 	{
-		printf("Error\n");
-		return (98);
-	}
-	for (i = 1; i < argc; i++)
-	{
-		if (contains_non_numeric(argv[i]))
+		if (*s < '0' || *s > '9')
 		{
-			printf("Error\n");
-			return (98);
+			return (0);
 		}
+		++s;
 	}
-	mem = _strlen(argv[1]) + _strlen(argv[2]) + 1;
-	ret = _calloc(mem, sizeof(char));
-	if (ret == NULL)
-		return (98);
-	ret = multiply_strings(argv[1], argv[2], ret, mem);
-	printf("%s\n", ret);
-	return (0);
+	return (1);
 }
-/**
- * multiply_strings - multiplies two strings together
- *
- * @s1: string 1 to multiply with string 2
- * @s2: string 2 to multiply with string 1
- * @buff: buffer to store result in
- * @size_b: size of buffer in bytes
- *
- * Return: pointer to beginning of buffer
- */
-char *multiply_strings(char *s1, char *s2, char *buff, unsigned int size_b)
-{
-	char *smaller, *larger;
-	int i = 0, res = 0;
 
-	smaller = (_strlen(s1) > _strlen(s2)) ? s1 : s2;
-	larger = (smaller == s1) ? s2 : s1;
-	res =  _atoi(smaller);
-	while (i < res)
-	{
-		buff = infinite_add(buff, larger, buff, size_b);
-		i++;
-	}
-	return (buff);
-}
 /**
- * _strlen - gets length of string
- *
+ * _puts - print string `s'
+ * @s: string to print
+ */
+void _puts(char *s)
+{
+	while (*s)
+		_putchar(*(s++));
+}
+
+/**
+ * rev_num_str - reverse a number string up to trailing zeros
+ * @start: beginning of number
+ * @end: end of number
+ * @ns: string containing number
+ */
+void rev_num_str(int start, int end, char *ns)
+{
+	int i, j;
+	char tmp;
+
+	while (ns[end] == 0 && end != start)
+		--end;
+	for (i = start, j = end; i <= j; ++i, --j)
+	{
+		tmp = ns[i] + '0';
+		ns[i] = ns[j] + '0';
+		ns[j] = tmp;
+	}
+}
+
+/**
+ * _strlen - calculate length of string `s'
  * @s: string to get length of
  *
  * Return: length of string
  */
 int _strlen(char *s)
 {
-	int len = 0;
+	int i;
 
-	while (s[len])
-		len++;
-	return (len);
+	for (i = 0; s[i]; ++i)
+		;
+	return (i);
 }
-/**
- * contains_non_numeric - checks if string has non numeric values
- *
- * @str: string to check
- *
- * Return: 1 if contains non numeric values, 0 if only numeric
- */
-int contains_non_numeric(char *str)
-{
-	while (*str)
-	{
-		if (*str < '0' || *str > '9')
-			return (1);
-		str++;
-	}
-	return (0);
-}
-/**
- * _atoi - converts string to integer
- *
- * @s: string to convert from
- *
- * Return: integer from conversion, -1 if contains nonint
- */
-int _atoi(char *s)
-{
-	int sign = 1;
-	unsigned int total = 0;
-	char working = 0;
 
-	while (*s)
-	{
-		if (*s == '-')
-			sign = sign * -1;
-		if (*s >= '0' && *s <= '9')
-		{
-			working = 1;
-			total = total * 10 + *s - '0';
-		}
-		else if (*s < '0' || *s > '9')
-		{
-			if (working)
-				break;
-		}
-		s++;
-	}
-	if (sign < 0)
-		total = (-(total));
-	return (total);
-}
 /**
- * infinite_add - adds two numbers
+ * strmul - multply two numbers as strings
+ * @a: first number
+ * @b: second number
  *
- * @n1: *char - first number
- * @n2: *char - second number
- * @r:  *char - buffer where result is stored
- * @size_r: int - size of buffer
- *
- * Return: pointer to r
+ * Return: pointer to result on success, or NULL on failure
  */
-char *infinite_add(char *n1, char *n2, char *r, int size_r)
+char *strmul(char *a, char *b)
 {
-	int tempSizeR = size_r;
-	char fill = 'd';
-	int n1Length = 0, n2Length = 0, result = 0, carryStore = 0;
+	int la, lb, i, j, k, l, neg = 0;
+	char *result;
+	char mul, mul_carry, sum, sum_carry;
 
-	while (*(n1 + n1Length) != '\0')
-		n1Length++;
-	while (*(n2 + n2Length) != '\0')
-		n2Length++;
-	/* account for 9999, 1, size_r:4, and extra space needed for '\0' */
-	if (n1Length > size_r - 2 || n2Length > size_r - 2)
-		return (0);
-	n1Length--, n2Length--; /* set element behind null byte */
-	while (size_r >= 0)
+	if (*a == '-')
 	{
-		if (size_r == tempSizeR)
-		{ /* set last byte to end of string char or 'null byte' */
-			r[size_r--] = '\0';
-			continue;
-		}
-		if (n1Length < 0 && n2Length < 0 && carryStore == 0)
-		{
-			r[size_r--] = fill;
-			continue; /* fill in rest with constants's */
-		}
-		else if (n1Length < 0 && n2Length < 0 && carryStore != 0)
-			result = carryStore;
-		else if (n1Length < 0)
-			result = n2[n2Length] + carryStore - '0';
-		else if (n2Length < 0)
-			result = n1[n1Length] + carryStore - '0';
-		else /* normal case */
-		{
-			result = (n1[n1Length] - '0') + (n2[n2Length] - '0') + carryStore;
-		}
-		carryStore = 0;
-		if (result > 9)
-		{
-			carryStore = 1;
-			result = result - 10;
-		}
-		n1Length--, n2Length--;
-		r[size_r--] = result + '0';
+		neg ^= 1;
+		++a;
 	}
-	move_int_end_to_beg(r, tempSizeR, fill);
-	return (r);
-}
-/**
- * move_int_end_to_beg - moves integer from end of str to beginning
- *
- * @arr: string to change
- * @arrSize: size of string including null byte
- * @fillChar: character used to fill string that isn't part being moved
- *
- * Return: always void
- */
-void move_int_end_to_beg(char *arr, int arrSize, char fillChar)
-{
-	int i = 0;
-	int bufferPlacer = 0;
-	/* below loop moves elements to beginning of array */
-	while (i < arrSize)
+	if (*b == '-')
 	{
-		if (arr[i] != fillChar)
-		{
-			arr[bufferPlacer++] = arr[i];
-			arr[i] = '\0';
-		}
-		else
-			arr[i] = '\0';
-		i++;
+		neg ^= 1;
+		++b;
 	}
-}
-#include <stdlib.h>
-void *set_mem(void *p, unsigned int nmemb, unsigned int size, char ch);
-/**
- * _calloc - allocates memory for an array, and inits
- *
- * @nmemb: number of members in array
- * @size: size of each member
- *
- * Return: void pointer to beginning of alloc/init'ed memory
- */
-void *_calloc(unsigned int nmemb, unsigned int size)
-{
-	void *ret;
-
-	if (nmemb < 1 || size < 1)
+	la = _strlen(a);
+	lb = _strlen(b);
+	result = _calloc(la + lb + 1 + neg, sizeof(char));
+	if (result == NULL)
 		return (NULL);
-	ret = malloc(nmemb * size);
-	if (ret == NULL)
-		return (NULL);
-	ret = set_mem(ret, nmemb, size, '\0');
-	return (ret);
+	if (neg)
+		result[0] = '-';
+	for (i = lb - 1, l = neg; i >= 0; --i, ++l)
+	{
+		mul_carry = 0;
+		sum_carry = 0;
+		for (j = la - 1, k = l; j >= 0; --j, ++k)
+		{
+			mul = (a[j] - '0') * (b[i] - '0') + mul_carry;
+			mul_carry = mul / 10;
+			mul %= 10;
+			sum = result[k] + mul + sum_carry;
+			sum_carry = sum / 10;
+			sum %= 10;
+			result[k] = sum;
+		}
+		result[k] = sum_carry + mul_carry;
+	}
+	rev_num_str(neg, k, result);
+	return (result);
 }
-/**
- * set_mem - sets memory for void pointer
- *
- * @p: pointer to beginning of memory to set
- * @nmemb: number of members of array
- * @size: size of elements of array
- * @ch: character to set memory to
- *
- * Return: void pointer to beginning of set memory
- */
-void *set_mem(void *p, unsigned int nmemb, unsigned int size, char ch)
-{
-	char *cast = p;
-	unsigned int i = 0;
 
-	while (i < nmemb * size)
-		cast[i++] = ch;
-	return (p);
+/**
+ * main - multiply two numbers from the command line and print the result
+ * @argc: argument count
+ * @argv: argument list
+ *
+ * Return: 0 if successful, 98 if failure
+ */
+int main(int argc, char *argv[])
+{
+	char *result;
+
+	if (argc != 3)
+	{
+		_puts("Error\n");
+		exit(98);
+	}
+	if (!_strdigit(argv[1]) || !_strdigit(argv[2]))
+	{
+		_puts("Error\n");
+		exit(98);
+	}
+	result = strmul(argv[1], argv[2]);
+	if (result == NULL)
+	{
+		_puts("Error\n");
+		exit(98);
+	}
+	_puts(result);
+	_putchar('\n');
+	free(result);
+	exit(EXIT_SUCCESS);
 }
