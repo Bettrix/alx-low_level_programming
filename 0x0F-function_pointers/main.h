@@ -1,5 +1,5 @@
-#ifndef HOLBERTON_H
-#define HOLBERTON_H
+#ifndef MAIN_H
+#define MAIN_H
 int _putchar(char c);
 int _isupper(int c);
 int _isdigit(int c);
@@ -59,4 +59,4 @@ int **alloc_grid(int width, int height);
 void free_grid(int **grid, int height);
 char *argstostr(int ac, char **av);
 char **strtow(char *str);
-#endif /* HOLBERTON_H */
+#endif /* MAIN_H */
