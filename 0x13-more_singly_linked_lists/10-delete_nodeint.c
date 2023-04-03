@@ -8,10 +8,10 @@
  **/
 int delete_nodeint_at_index(listint_t **head, unsigned int index)
 {
-	listint_t *aux_node = *head;
+	listint_t *addtn_node = *head;
 	listint_t *node_to_delete = *head;
 	unsigned int idx;
-	unsigned int cont = 0;
+	unsigned int conti = 0;
 
 	/* border case for empty list */
 	if (!(*head))
@@ -27,17 +27,17 @@ int delete_nodeint_at_index(listint_t **head, unsigned int index)
 
 	/* search of position to delete */
 	idx = index - 1;
-	while (aux_node && cont != idx)
+	while (addtn_node && conti != idx)
 	{
-		cont++;
-		aux_node = aux_node->next;
+		conti++;
+		addtn_node = addtn_node->next;
 	}
 
 	/* general case */
-	if (cont == idx && aux_node)
+	if (conti == idx && addtn_node)
 	{
-		node_to_delete = aux_node->next;
-		aux_node->next = node_to_delete->next;
+		node_to_delete = addtn_node->next;
+		addtn_node->next = node_to_delete->next;
 		free(node_to_delete);
 		return (1);
 	}
